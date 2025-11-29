@@ -37,6 +37,10 @@ sudo npm install -g pm2
 
 # Create app directory
 echo "Creating app directory..."
+if [ -d /var/www/crm-app ]; then
+    echo "Removing existing directory..."
+    sudo rm -rf /var/www/crm-app
+fi
 sudo mkdir -p /var/www/crm-app
 sudo chown -R $USER:$USER /var/www/crm-app
 
