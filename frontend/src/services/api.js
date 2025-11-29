@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// Use relative path so it works with nginx proxy in production
+// In development with npm start, the proxy field in package.json will handle it
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
