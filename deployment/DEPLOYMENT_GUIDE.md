@@ -67,34 +67,92 @@ REACT_APP_API_URL=https://your-domain.com
 DATABASE_PATH=/var/www/crm-app/crm_database.db
 ```
 
-## Step 5: Setup SSL Certificate
+## Step 5: Setup SSL Certificate (Optional - for domain names only)
 
+**If you have a domain name:**
 ```bash
 sudo certbot certonly --nginx -d your-domain.com
 ```
 
+**For IP address deployments:**
+Skip this step. Your app will be accessible via HTTP on the IP address.
+
 ## Step 6: Update Nginx Configuration
+
+**For IP address deployments (no SSL):**
+
+Nginx is already configured to work with your IP address. No changes needed!
+
+Access your app at: `http://your_droplet_ip`
+
+**For domain name deployments (with SSL):**
 
 Edit nginx config:
 ```bash
 sudo nano /etc/nginx/sites-available/crm-app
 ```
 
-**Replace the following placeholders with your actual domain:**
-- Change `your-domain.com` to your actual domain (2 places in ssl_certificate paths)
-- Change `server_name _;` to `server_name your-domain.com;`
-
-Example changes:
+Add SSL configuration. Edit nginx config and add after the HTTP server block:
 ```nginx
-# Before:
-ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
-server_name _;
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name your-domain.com;
 
-# After:
-ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
-server_name example.com;
+    # SSL Certificate paths
+    ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
+
+    # SSL Configuration
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    # Gzip compression
+    gzip on;
+    gzip_types text/plain text/css text/javascript application/json application/javascript;
+    gzip_min_length 1000;
+
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+
+    # Serve frontend static files
+    location / {
+        root /var/www/crm-app/frontend/build;
+        try_files $uri $uri/ /index.html;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # Proxy API requests to backend
+    location /api/ {
+        proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Deny access to sensitive files
+    location ~ /\. {
+        deny all;
+    }
+}
+
+# HTTP to HTTPS redirect
+server {
+    listen 80;
+    listen [::]:80;
+    server_name your-domain.com;
+    return 301 https://$host$request_uri;
+}
 ```
 
 Test and restart nginx:
@@ -103,13 +161,34 @@ sudo nginx -t  # Test configuration
 sudo systemctl restart nginx
 ```
 
-## Step 7: Point Domain to Droplet
+## Step 7: Point Domain to Droplet (Domain deployments only)
 
 1. In your domain registrar's DNS settings, create an A record pointing to your droplet's IP
 2. Wait for DNS propagation (usually 5-15 minutes)
 
+**For IP address deployments:** Skip this step.
+
 ## Step 8: Verify Deployment
 
+**For IP address deployments:**
+```bash
+# Check PM2 status
+pm2 status
+
+# View logs
+pm2 logs
+
+# Check nginx status
+sudo systemctl status nginx
+
+# Test API
+curl http://your_droplet_ip/api/health
+
+# Access app in browser
+# Open: http://your_droplet_ip
+```
+
+**For domain deployments:**
 ```bash
 # Check PM2 status
 pm2 status
@@ -122,6 +201,9 @@ sudo systemctl status nginx
 
 # Test API
 curl https://your-domain.com/api/health
+
+# Access app in browser
+# Open: https://your-domain.com
 ```
 
 ## Ongoing Management
