@@ -1,0 +1,43 @@
+{
+  "name": "crm-app",
+  "version": "1.0.0",
+  "description": "Full-stack CRM application with AI features",
+  "main": "backend/server.js",
+  "private": true,
+  "engines": {
+    "node": "18.x || 20.x",
+    "npm": "9.x || 10.x"
+  },
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "build": "npm run client:build",
+    "server": "node backend/server.js",
+    "server:dev": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "client:dev": "cd frontend && npm start",
+    "client:build": "cd frontend && npm run build",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "load-data": "cd backend && npm run load-data",
+    "clear-data": "cd backend && npm run clear-data",
+    "reset-data": "cd backend && npm run reset-data",
+    "export-data": "cd backend && npm run export-data"
+  },
+  "keywords": ["crm", "nodejs", "react", "sqlite", "ai"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gpad1234/glowing-waddle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gpad1234/glowing-waddle/issues"
+  },
+  "homepage": "https://github.com/gpad1234/glowing-waddle#readme"
+}

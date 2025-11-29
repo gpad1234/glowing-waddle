@@ -103,6 +103,22 @@ frontend/npm-debug.log
 .vscode/launch.json
 .vscode/settings.json
 
+# Cloud deployment
+.azure/
+local.settings.json
+.aws/
+.env.cloud
+
+# Heroku
+Procfile.local
+
+# Docker
+.dockerignore
+docker-compose.local.yml
+
 # Misc
 .cache
 dist
+exports/
+data_exports/
+
