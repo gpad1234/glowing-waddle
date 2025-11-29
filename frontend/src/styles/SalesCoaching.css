@@ -1,0 +1,182 @@
+.sales-coaching-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.coaching-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.coaching-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.coaching-header p {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.coaching-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.customer-select {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.customer-select:focus {
+  outline: none;
+  border-color: #f4b183;
+}
+
+.coaching-selector button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #f4916a 0%, #d67b56 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.coaching-selector button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(244, 145, 106, 0.3);
+}
+
+.coaching-selector button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.coaching-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.coaching-customer h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.coaching-meta {
+  margin: 0;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.coaching-sections {
+  margin-top: 1.5rem;
+}
+
+.coaching-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #f4916a;
+}
+
+.coaching-section h4 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.coaching-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.coaching-section li {
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+  color: #333;
+  line-height: 1.5;
+}
+
+.coaching-section li:before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #f4916a;
+  font-weight: bold;
+}
+
+.coaching-section ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: item;
+}
+
+.coaching-section ol li {
+  counter-increment: item;
+  padding: 0.5rem 0 0.5rem 2rem;
+  position: relative;
+  color: #333;
+  line-height: 1.5;
+}
+
+.coaching-section ol li:before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #f4916a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.coaching-section.tips p {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .sales-coaching-container {
+    padding: 1rem;
+  }
+
+  .coaching-selector {
+    flex-direction: column;
+  }
+
+  .customer-select,
+  .coaching-selector button {
+    width: 100%;
+  }
+
+  .coaching-content {
+    padding: 1rem;
+  }
+}

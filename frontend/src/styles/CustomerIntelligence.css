@@ -1,0 +1,236 @@
+.customer-intelligence-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.intelligence-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.intelligence-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: #6a1b9a;
+  font-size: 1.8rem;
+}
+
+.intelligence-header p {
+  color: #7b1fa2;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.intelligence-selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.intelligence-selector .customer-select {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  background: white;
+}
+
+.intelligence-selector .customer-select:focus {
+  outline: none;
+  border-color: #7b1fa2;
+}
+
+.intelligence-selector button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #8e24aa 0%, #6a1b9a 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.intelligence-selector button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(142, 36, 170, 0.3);
+}
+
+.intelligence-selector button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.intelligence-report {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.report-header {
+  border-bottom: 3px solid #8e24aa;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.report-header h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.company-info {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.intelligence-sections {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.intel-section {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #8e24aa;
+}
+
+.intel-section h4 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.signal-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.signal-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #333;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 4px;
+  line-height: 1.5;
+}
+
+.signal-indicator {
+  color: #8e24aa;
+  font-size: 1.2rem;
+}
+
+.decision-makers-list,
+.opportunities-list,
+.actions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.decision-makers-list li,
+.opportunities-list li,
+.actions-list li {
+  padding: 0.75rem 0 0.75rem 1.5rem;
+  position: relative;
+  color: #333;
+  line-height: 1.6;
+}
+
+.decision-makers-list li:before,
+.opportunities-list li:before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #8e24aa;
+  font-weight: bold;
+}
+
+.actions-list {
+  counter-reset: item;
+}
+
+.actions-list li {
+  counter-increment: item;
+  padding: 0.75rem 0 0.75rem 2rem;
+}
+
+.actions-list li:before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: #8e24aa;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.risk-assessment {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.strategy-text {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  border-left: 4px solid #f5c6cb;
+}
+
+@media (max-width: 768px) {
+  .customer-intelligence-container {
+    padding: 1rem;
+  }
+
+  .intelligence-selector {
+    flex-direction: column;
+  }
+
+  .intelligence-selector .customer-select,
+  .intelligence-selector button {
+    width: 100%;
+  }
+
+  .intelligence-report {
+    padding: 1rem;
+  }
+
+  .report-header h3 {
+    font-size: 1.2rem;
+  }
+}
