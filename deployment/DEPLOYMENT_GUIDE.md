@@ -80,10 +80,26 @@ Edit nginx config:
 sudo nano /etc/nginx/sites-available/crm-app
 ```
 
-Update the domain placeholders in the ssl_certificate paths and server_name.
+**Replace the following placeholders with your actual domain:**
+- Change `your-domain.com` to your actual domain (2 places in ssl_certificate paths)
+- Change `server_name _;` to `server_name your-domain.com;`
 
-Restart nginx:
+Example changes:
+```nginx
+# Before:
+ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
+server_name _;
+
+# After:
+ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+server_name example.com;
+```
+
+Test and restart nginx:
 ```bash
+sudo nginx -t  # Test configuration
 sudo systemctl restart nginx
 ```
 
