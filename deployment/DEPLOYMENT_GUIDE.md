@@ -25,24 +25,27 @@ ssh root@your_droplet_ip
 
 ## Step 3: Run Setup Script
 
-**First time setup:**
+**First time setup (with clone):**
 ```bash
 cd ~
 wget https://raw.githubusercontent.com/gpad1234/glowing-waddle/main/deployment/setup.sh
 chmod +x setup.sh
+./setup.sh --clone
+```
+
+**Skip clone if already cloned:**
+```bash
+cd ~
 ./setup.sh
 ```
 
-**If re-running setup (directory already exists):**
+**If re-running setup (directory already exists) and want to re-clone:**
 ```bash
-# Clean up existing installation
-sudo rm -rf /var/www/crm-app
-
-# Then run setup
-bash ~/setup.sh
+# Run with --clone flag to re-clone the repository
+bash ~/setup.sh --clone
 ```
 
-Or if you've already cloned the repo:
+Or if you've already cloned the repo manually:
 ```bash
 cd /var/www/crm-app
 bash deployment/setup.sh

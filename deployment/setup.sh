@@ -2,8 +2,27 @@
 
 # CRM App DigitalOcean Deployment Setup Script
 # This script prepares a DigitalOcean droplet for the CRM application
+# Usage: ./setup.sh [--clone]
+#   --clone: Clone the repository (default: skip if already exists)
 
 set -e
+
+CLONE_REPO=false
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --clone)
+            CLONE_REPO=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: ./setup.sh [--clone]"
+            exit 1
+            ;;
+    esac
+done
 
 echo "================================"
 echo "CRM App - DigitalOcean Setup"
@@ -37,17 +56,29 @@ sudo npm install -g pm2
 
 # Create app directory
 echo "Creating app directory..."
-if [ -d /var/www/crm-app ]; then
-    echo "Removing existing directory..."
-    sudo rm -rf /var/www/crm-app
+if [ "$CLONE_REPO" = true ]; then
+    if [ -d /var/www/crm-app ]; then
+        echo "Removing existing directory..."
+        sudo rm -rf /var/www/crm-app
+    fi
+    sudo mkdir -p /var/www/crm-app
+    sudo chown -R $USER:$USER /var/www/crm-app
+    
+    # Clone repository (update with your repo URL)
+    echo "Cloning repository..."
+    git clone https://github.com/gpad1234/glowing-waddle.git /var/www/crm-app
+    cd /var/www/crm-app
+else
+    if [ ! -d /var/www/crm-app ]; then
+        echo "Directory /var/www/crm-app does not exist."
+        echo "Please clone the repository first or use --clone flag:"
+        echo "  ./setup.sh --clone"
+        exit 1
+    fi
+    sudo chown -R $USER:$USER /var/www/crm-app
+    cd /var/www/crm-app
+    echo "Using existing repository at /var/www/crm-app"
 fi
-sudo mkdir -p /var/www/crm-app
-sudo chown -R $USER:$USER /var/www/crm-app
-
-# Clone repository (update with your repo URL)
-echo "Cloning repository..."
-git clone https://github.com/gpad1234/glowing-waddle.git /var/www/crm-app
-cd /var/www/crm-app
 
 # Install dependencies
 echo "Installing dependencies..."
