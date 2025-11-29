@@ -42,8 +42,8 @@ sudo chown -R $USER:$USER /var/www/crm-app
 
 # Clone repository (update with your repo URL)
 echo "Cloning repository..."
+git clone https://github.com/gpad1234/glowing-waddle.git /var/www/crm-app
 cd /var/www/crm-app
-git clone https://github.com/gpad1234/glowing-waddle.git .
 
 # Install dependencies
 echo "Installing dependencies..."
@@ -67,7 +67,7 @@ fi
 
 # Copy nginx configuration
 echo "Configuring nginx..."
-sudo cp nginx.conf /etc/nginx/sites-available/crm-app
+sudo cp /var/www/crm-app/nginx.conf /etc/nginx/sites-available/crm-app
 sudo ln -sf /etc/nginx/sites-available/crm-app /etc/nginx/sites-enabled/crm-app
 sudo rm -f /etc/nginx/sites-enabled/default
 
